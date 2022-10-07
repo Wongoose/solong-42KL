@@ -16,10 +16,10 @@ char	**read_map(char *file)
 	while (map[i])
 		i++;
 	map[i - 1][ft_strlen(*map)] = 0;
-	i = 0;
-	while (map[i])
-		printf("split: %s\n", map[i++]);
-	printf("split: %s\n", map[i]);
+	// i = 0;
+	// while (map[i])
+	// 	printf("split: %s\n", map[i++]);
+	// printf("split: %s\n", map[i]);
 	close(fd);
 	return (map);
 }

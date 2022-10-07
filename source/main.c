@@ -1,16 +1,17 @@
 #include "../so_long.h"
 
-t_tile	**init_map(t_game *game, char **argv)
+t_tile	**init_map(t_game *game, int argc, char **argv)
 {
 	char	**map;
 	t_tile	**tilemap;
 
-	// MISSING: Check for valid map file
+	valid_file(argc, argv[1]);
 	// map file parsed in argument
 	map = read_map(argv[1]);
 	if (!map)
 		return (NULL);
 	// MISSING: validate map content
+	
 	tilemap = init_tiles(map, game);
 	// MISSIG: free map
 	if (!tilemap)
@@ -25,10 +26,10 @@ void	init_display(t_game *game)
 	init_images(game);
 }
 
-int	init_game(t_game *game, char **argv)
+int	init_game(t_game *game, int argc, char **argv)
 {
 	// MISSING: init collect and moves
-	game->tilemap = init_map(game, argv);
+	game->tilemap = init_map(game, argc, argv);
 	if (!game->tilemap)
 		err_exit("Failed to init tiles");
 	// MISSING: animation setup
@@ -41,7 +42,7 @@ int	main(int argc, char **argv)
 	t_game	game;
 
 	(void)argc;
-	if (!init_game(&game, argv))
+	if (!init_game(&game, argc, argv))
 		return (0);
 	// BELOW: Commented destroy notify event key
 	// mlx_hook(game.win, 17, 0, end_program, &game);
