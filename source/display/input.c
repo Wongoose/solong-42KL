@@ -17,8 +17,6 @@ int	input(int keycode, t_game *game)
 {
 	if (keycode == ESC)
 		end_program(game);
-	// if (game->player.tile == NULL)
-	// 	return (0);
 	if (keycode == KEY_UP)
 		move_player(game, game->player.tile->up);
 	else if (keycode == KEY_DOWN)

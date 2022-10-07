@@ -2,6 +2,7 @@
 
 void	draw_image(t_tile tile, t_game *game, t_vector pos)
 {
+	//compare og_type to current type if has changes
 	if (tile.type == PLAYER)
 		mlx_put_image_to_window(game->mlx, game->win, game->player.img, pos.x, pos.y);
 	else if (tile.type == WALL)
@@ -12,6 +13,7 @@ void	draw_image(t_tile tile, t_game *game, t_vector pos)
 		mlx_put_image_to_window(game->mlx, game->win, game->collectible_img, pos.x, pos.y);
 	else if (tile.type == EXIT)
 		mlx_put_image_to_window(game->mlx, game->win, game->exit_img, pos.x, pos.y);
+	// update og_type to current_type
 }
 
 int	render(t_game *game)

@@ -1,25 +1,17 @@
 #include "../../so_long.h"
 
+// Auto exit if invalid file
 void	valid_file(int argc, char *filename)
 {
 	char	*filetype;
 
 	if (argc < 2)
-	{
-		ft_putstr_fd("Too few arguments.", 2);
-		exit(1);
-	}
+		putstr_fd_exit("Too few arguments.");
 	if (argc > 2)
-	{
-		ft_putstr_fd("Too few arguments.", 2);
-		exit(1);
-	}
+		putstr_fd_exit("Too many arguments.");
 	filetype = ft_strnstr(filename, ".ber", ft_strlen(filename));
 	if(!filetype || ft_strlen(filetype) != 4)
-	{
-		ft_putstr_fd("Map should be a valid .ber file", 2);
-		exit(1);
-	}
+		putstr_fd_exit("Map should be a valid .ber file.");
 }
 
 void	init_mapvars(t_map *map_vars)
@@ -50,7 +42,6 @@ int	valid_wall(char **map)
 	int		col;
 
 	row = 0;
-	// loop check front and end only
 	while (map[row])
 	{
 		if (!(map[row][0] == '1' && map[row][ft_strlen(*map) - 1] == '1'))
@@ -68,7 +59,7 @@ int	valid_wall(char **map)
 	return (1);
 }
 
-int	valid_map(char **map)
+char	*valid_map(char **map)
 {
 	t_map	map_vars;
 	int		row;
@@ -80,37 +71,16 @@ int	valid_map(char **map)
 	{
 		col = 0;
 		while (map[row][col])
-		{
-			update_map_vars(&map_vars, map[row][col]);
-			if (map_vars.invalidChar > 0)
-			{
-				ft_putstr_fd("Error\nFound invalid characters!", 2);
-				return (0);
-			}
-			col++;
-		}
+			update_map_vars(&map_vars, map[row][col++]);
 		row++;
 	}
-	// printf("Number of P is: %d\n", map_vars.startNum);
-	// printf("Number of E is: %d\n", map_vars.exitNum);
-	// printf("Number of C is: %d\n", map_vars.collectNum);
-	// DONE: Check if map is rectangular
-	if (row == col)
-	{
-		ft_putstr_fd("Error\nMap must be rectangular.", 2);
-		return (0);
-	}
-	// Check if map is surrounded by walls
-	if (!valid_wall(map))
-	{
-		ft_putstr_fd("Error\nInvalid wall detected!", 2);
-		return (0);
-	}
-	if (!((map_vars.startNum == 1 && map_vars.exitNum == 1) && map_vars.collectNum > 0))
-	{
-		ft_putstr_fd("Error\nThere must only be one 'P' and one 'E' and at least one 'C' in the map.", 2);
-		// must return because map will only be freed in parent function
-		return (0);
-	}
-	return (1);
+	if (map_vars.invalidChar > 0)
+		return (ft_strdup("Found invalid characters!"));
+	else if (row == col)
+		return (ft_strdup("Map must be rectangular."));
+	else if (!valid_wall(map))
+		return (ft_strdup("Invalid wall detected!"));
+	else if (!((map_vars.startNum == 1 && map_vars.exitNum == 1) && map_vars.collectNum > 0))
+		return (ft_strdup("There must only be one 'P' and one 'E' and at least one 'C' in the map."));
+	return (0);
 }

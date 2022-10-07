@@ -2,8 +2,8 @@ NAME		= so_long
 
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
-SRCS		= main.c display/display_init_imgs.c map/map_validation.c map/map_init_tiles.c \
-				map/map_read.c utils/error.c utils/input.c utils/render.c utils/free.c
+SRCS		= main.c display/input.c display/render.c map/map_validation.c map/map_init_tiles.c \
+				map/map_read.c utils/error.c utils/free.c
 SRCS_P		= $(addprefix source/, ${SRCS})
 OBJS		= ${SRCS_P:.c=.o}
 

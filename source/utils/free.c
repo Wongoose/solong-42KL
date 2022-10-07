@@ -11,7 +11,7 @@ void	free_map(char **map)
 	free(map);
 }
 
-void	free_tile_map(t_tile **tilemap)
+void	free_tilemap(t_tile **tilemap)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ void	free_tile_map(t_tile **tilemap)
 
 int	end_program(t_game *game)
 {
-	free_tile_map(game->tilemap);
+	free_tilemap(game->tilemap);
 	mlx_destroy_window(game->mlx, game->win);
 	exit(1);
 }

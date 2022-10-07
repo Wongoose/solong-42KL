@@ -8,6 +8,15 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
+enum e_keycode
+{
+	KEY_UP = 13,
+	KEY_DOWN = 1,
+	KEY_LEFT = 0,
+	KEY_RIGHT = 2,
+	RESET = 15,
+	ESC = 53
+};
 
 typedef enum	e_tiletype {
 	EMPTY = '0',
@@ -15,8 +24,6 @@ typedef enum	e_tiletype {
 	COLLECTIBLE = 'C',
 	PLAYER = 'P',
 	EXIT = 'E',
-	ENEMY = 'M',
-	FOLLOWER = 'F'
 }	t_tiletype;
 
 typedef struct s_vector {
@@ -36,10 +43,6 @@ typedef struct	s_tile {
 typedef struct	s_player {
 	void	*img;
 	t_tile	*tile;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
 	int		img_width;
 	int		img_height;
 }	t_player;
@@ -55,7 +58,6 @@ typedef struct	s_game {
 	void		*background_img;
 	void		*collectible_img;
 	void		*exit_img;
-	void		*panel;
 }	t_game;
 
 typedef struct	s_map {
@@ -65,27 +67,18 @@ typedef struct	s_map {
 	int	invalidChar;
 }	t_map;
 
-enum e_keycode
-{
-	KEY_UP = 13,
-	KEY_DOWN = 1,
-	KEY_LEFT = 0,
-	KEY_RIGHT = 2,
-	RESET = 15,
-	ESC = 53
-};
-
 void	my_mlx_pixel_put(t_player *data, int x, int y, int color);
-int	input(int keycode, t_game *game);
-int	mouse(int x, int y, t_game *game);
-void	err_exit(char *err);
 char	**read_map(char *file);
-t_tile	**init_tiles(char **map, t_game *game);
-void	init_images(t_game *game);
-int	render(t_game *game);
 void	valid_file(int argc, char *filename);
-int	valid_map(char **map);
+char	*valid_map(char **map);
+void	init_images(t_game *game);
+t_tile	**init_tiles(char **map, t_game *game);
+int		input(int keycode, t_game *game);
+int		render(t_game *game);
+int		end_program(t_game *game);
+void	putstr_fd_exit(char *err);
+void	err_exit(char *err);
 void	free_map(char **map);
-int	end_program(t_game *game);
+void	free_tilemap(t_tile **tilemap);
 
 #endif

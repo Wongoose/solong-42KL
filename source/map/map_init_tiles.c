@@ -8,20 +8,18 @@ t_tile	**allocate_tiles(char **map)
 	rows = 0;
 	while (map[rows])
 		rows++;
-	// printf("NUMBER OF ROWS:%d\n", rows);
-		// BELOW: +1 for null terminator at end of map
 	tilemap = malloc(sizeof(t_tile *) * (rows + 1));
 	if (!tilemap)
 		return (NULL);
 	rows = 0;
 	while (map[rows])
 	{
-		// BELOW: +1 for null terminator at end of each row
-		// printf("Row len:%zu\n", ft_strlen(*map));
 		tilemap[rows] = (t_tile *)malloc(sizeof(t_tile) * (ft_strlen(*map) + 1));
 		if (!tilemap[rows])
+		{
+			free_tilemap(tilemap);
 			return (NULL);
-			// MISSING: free tilemap
+		}
 		rows++;
 	}
 	return (tilemap);
@@ -31,24 +29,20 @@ t_tiletype	define_type(char c)
 {
 	if (c == '1')
 		return (WALL);
-	if (c == 'C')
+	else if (c == 'C')
 		return (COLLECTIBLE);
-	if (c == 'P')
+	else if (c == 'P')
 		return (PLAYER);
-	if (c == 'E')
+	else if (c == 'E')
 		return (EXIT);
-	if (c == 'H' || c == 'V')
-		return (ENEMY);
-	else if (c == 'F')
-		return (FOLLOWER);
-	return (EMPTY);
+	else
+		return (EMPTY);
 }
 
 void	setup_tile(t_tile **tilemap, int col, int row)
 {
 	tilemap[row][col].pos.x = col * IMG_SIZE;
 	tilemap[row][col].pos.y = row * IMG_SIZE;
-	// BELOW: Setting link list for tiles (up, down, left, right)
 	if (row != 0)
 		tilemap[row][col].up = &tilemap[row - 1][col];
 	if (tilemap[row + 1] != NULL)
@@ -66,12 +60,12 @@ t_tile	**init_tiles(char **map, t_game *game)
 
 	tilemap = allocate_tiles(map);
 	if (!tilemap)
-		err_exit("Failed to allocate tiles");
+		return (NULL);
 	row = 0;
 	while (map[row])
 	{
 		col = 0;
-		while (map[row][col] != '\0')
+		while (map[row][col])
 		{
 			tilemap[row][col].type = define_type(map[row][col]);
 			setup_tile(tilemap, col, row);
@@ -80,11 +74,9 @@ t_tile	**init_tiles(char **map, t_game *game)
 			// MISSING: set game variables (i.e. collectibles++)
 			col++;
 		}
-		// BELOW: Set end of each row as NULL
 		tilemap[row][col].type = 0;
 		row++;
 	}
-	// BELOW: Set end of map as NULL
 	tilemap[row] = NULL;
 	game->win_size.x = col * IMG_SIZE;
 	game->win_size.y = row * IMG_SIZE;
