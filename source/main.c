@@ -11,9 +11,12 @@ t_tile	**init_map(t_game *game, int argc, char **argv)
 	if (!map)
 		return (NULL);
 	// MISSING: validate map content
-	
+	if (!valid_map(map))
+	{
+		free_map(map);
+		exit(1);
+	}
 	tilemap = init_tiles(map, game);
-	// MISSING: free map
 	if (!tilemap)
 		return (NULL);
 	free_map(map);
@@ -46,7 +49,7 @@ int	main(int argc, char **argv)
 	if (!init_game(&game, argc, argv))
 		return (0);
 	// BELOW: Commented destroy notify event key
-	// mlx_hook(game.win, 17, 0, end_program, &game);
+	mlx_hook(game.win, 17, 0, end_program, &game);
 	mlx_hook(game.win, 2, 1L<<0, input, &game);
 	mlx_loop_hook(game.mlx, render, (void *)&game);
 	mlx_loop(game.mlx);

@@ -8,7 +8,7 @@ t_tile	**allocate_tiles(char **map)
 	rows = 0;
 	while (map[rows])
 		rows++;
-	printf("NUMBER OF ROWS:%d\n", rows);
+	// printf("NUMBER OF ROWS:%d\n", rows);
 		// BELOW: +1 for null terminator at end of map
 	tilemap = malloc(sizeof(t_tile *) * (rows + 1));
 	if (!tilemap)
@@ -17,7 +17,7 @@ t_tile	**allocate_tiles(char **map)
 	while (map[rows])
 	{
 		// BELOW: +1 for null terminator at end of each row
-		printf("Row len:%zu\n", ft_strlen(*map));
+		// printf("Row len:%zu\n", ft_strlen(*map));
 		tilemap[rows] = (t_tile *)malloc(sizeof(t_tile) * (ft_strlen(*map) + 1));
 		if (!tilemap[rows])
 			return (NULL);
@@ -81,12 +81,10 @@ t_tile	**init_tiles(char **map, t_game *game)
 			col++;
 		}
 		// BELOW: Set end of each row as NULL
-		printf("Setting col null at col:%d\n", col);
 		tilemap[row][col].type = 0;
 		row++;
 	}
 	// BELOW: Set end of map as NULL
-	printf("Setting row null at row:%d\n", row);
 	tilemap[row] = NULL;
 	game->win_size.x = col * IMG_SIZE;
 	game->win_size.y = row * IMG_SIZE;

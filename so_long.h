@@ -58,6 +58,13 @@ typedef struct	s_game {
 	void		*panel;
 }	t_game;
 
+typedef struct	s_map {
+	int	exitNum;
+	int	startNum;
+	int	collectNum;
+	int	invalidChar;
+}	t_map;
+
 enum e_keycode
 {
 	KEY_UP = 13,
@@ -77,6 +84,7 @@ t_tile	**init_tiles(char **map, t_game *game);
 void	init_images(t_game *game);
 int	render(t_game *game);
 void	valid_file(int argc, char *filename);
+int	valid_map(char **map);
 void	free_map(char **map);
 
 #endif
