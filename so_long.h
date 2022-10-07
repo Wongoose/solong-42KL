@@ -77,5 +77,6 @@ t_tile	**init_tiles(char **map, t_game *game);
 void	init_images(t_game *game);
 int	render(t_game *game);
 void	valid_file(int argc, char *filename);
+void	free_map(char **map);
 
 #endif

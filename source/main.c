@@ -13,9 +13,10 @@ t_tile	**init_map(t_game *game, int argc, char **argv)
 	// MISSING: validate map content
 	
 	tilemap = init_tiles(map, game);
-	// MISSIG: free map
+	// MISSING: free map
 	if (!tilemap)
 		return (NULL);
+	free_map(map);
 	return (tilemap);
 }
 
