@@ -86,5 +86,6 @@ int	render(t_game *game);
 void	valid_file(int argc, char *filename);
 int	valid_map(char **map);
 void	free_map(char **map);
+int	end_program(t_game *game);
 
 #endif

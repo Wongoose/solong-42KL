@@ -16,10 +16,7 @@ int	move_player(t_game *game, t_tile *tile)
 int	input(int keycode, t_game *game)
 {
 	if (keycode == ESC)
-	{
-		mlx_destroy_window(game->mlx, game->win);
-		exit(1);
-	}
+		end_program(game);
 	// if (game->player.tile == NULL)
 	// 	return (0);
 	if (keycode == KEY_UP)

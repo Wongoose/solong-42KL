@@ -10,3 +10,21 @@ void	free_map(char **map)
 	free(map[i]);
 	free(map);
 }
+
+void	free_tile_map(t_tile **tilemap)
+{
+	int	i;
+
+	i = 0;
+	while (tilemap[i])
+		free(tilemap[i++]);
+	free(tilemap[i]);
+	free(tilemap);
+}
+
+int	end_program(t_game *game)
+{
+	free_tile_map(game->tilemap);
+	mlx_destroy_window(game->mlx, game->win);
+	exit(1);
+}
