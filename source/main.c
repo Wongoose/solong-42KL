@@ -21,7 +21,7 @@ t_tile	**init_map(t_game *game, char **argv)
 void	init_display(t_game *game)
 {
 	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, game->win_size.x + IMG_SIZE / 2, game->win_size.y, "so_long");
+	game->win = mlx_new_window(game->mlx, game->win_size.x, game->win_size.y, "so_long");
 	init_images(game);
 }
 
@@ -48,4 +48,5 @@ int	main(int argc, char **argv)
 	mlx_hook(game.win, 2, 1L<<0, input, &game);
 	mlx_loop_hook(game.mlx, render, (void *)&game);
 	mlx_loop(game.mlx);
+	system("leaks so_long");
 }

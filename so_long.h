@@ -1,6 +1,6 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
-# define IMG_SIZE 128
+# define IMG_SIZE 32
 
 # include <mlx.h>
 # include <stdio.h>
@@ -12,7 +12,7 @@
 typedef enum	e_tiletype {
 	EMPTY = '0',
 	WALL = '1',
-	COLLECTABLE = 'C',
+	COLLECTIBLE = 'C',
 	PLAYER = 'P',
 	EXIT = 'E',
 	ENEMY = 'M',
@@ -51,6 +51,10 @@ typedef struct	s_game {
 	t_vector	win_size;
 	t_vector	img_size;
 	t_player	player;
+	void		*wall_img;
+	void		*background_img;
+	void		*collectible_img;
+	void		*exit_img;
 	void		*panel;
 }	t_game;
 

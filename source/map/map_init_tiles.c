@@ -32,7 +32,7 @@ t_tiletype	define_type(char c)
 	if (c == '1')
 		return (WALL);
 	if (c == 'C')
-		return (COLLECTABLE);
+		return (COLLECTIBLE);
 	if (c == 'P')
 		return (PLAYER);
 	if (c == 'E')
