@@ -40,7 +40,7 @@ void	init_images(t_game *game)
 
 int	init_game(t_game *game, int argc, char **argv)
 {
-	// MISSING: init collect and moves
+	game->moves = 0;
 	game->tilemap = init_map(game, argc, argv);
 	// MISSING: animation setup
 	init_display(game);
@@ -52,7 +52,6 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	(void)argc;
 	if (!init_game(&game, argc, argv))
 		return (0);
 	mlx_hook(game.win, 17, 0, end_program, &game);

@@ -4,12 +4,16 @@ int	move_player(t_game *game, t_tile *tile)
 {
 	if (tile->type == WALL)
 		return (0);
+	if (tile->type == EXIT)
+		end_program(game);
 	if (tile->type == COLLECTIBLE)
 		game->map_vars->collectNum--;
+
 	// printf("Collectible is: %d\n", game->map_vars->collectNum);
 	tile->type = PLAYER;
 	game->player.tile->type = EMPTY;
 	game->player.tile = tile;
+	game->moves++;
 	return (1);
 }
 
@@ -27,5 +31,6 @@ int	input(int keycode, t_game *game)
 		move_player(game, game->player.tile->right);
 	else
 		return (0);
+	printf("Moves is: %d\n", game->moves);
 	return (1);
 }

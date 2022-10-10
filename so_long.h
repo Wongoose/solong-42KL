@@ -67,6 +67,7 @@ typedef struct	s_game {
 	void		*background_img;
 	void		*collectible_img;
 	void		*exit_img;
+	int			moves;
 }	t_game;
 
 void	my_mlx_pixel_put(t_player *data, int x, int y, int color);
