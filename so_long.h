@@ -33,6 +33,7 @@ typedef struct s_vector {
 
 typedef struct	s_tile {
 	t_tiletype		type;
+	t_tiletype		prev_type;
 	t_vector		pos;
 	struct s_tile	*up;
 	struct s_tile	*down;
@@ -47,6 +48,13 @@ typedef struct	s_player {
 	int		img_height;
 }	t_player;
 
+typedef struct	s_map {
+	int	exitNum;
+	int	startNum;
+	int	collectNum;
+	int	invalidChar;
+}	t_map;
+
 typedef struct	s_game {
 	void		*mlx;
 	void		*win;
@@ -59,13 +67,6 @@ typedef struct	s_game {
 	void		*collectible_img;
 	void		*exit_img;
 }	t_game;
-
-typedef struct	s_map {
-	int	exitNum;
-	int	startNum;
-	int	collectNum;
-	int	invalidChar;
-}	t_map;
 
 void	my_mlx_pixel_put(t_player *data, int x, int y, int color);
 char	**read_map(char *file);

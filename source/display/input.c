@@ -1,15 +1,26 @@
 # include "../../so_long.h"
 
+void	move_to_empty(t_game *game, t_tile *tile)
+{
+	tile->type = PLAYER;
+	game->player.tile->type = EMPTY;
+	game->player.tile = tile;
+}
+
+void	move_to_collectible(t_game *game, t_tile *tile)
+{
+	tile->type = PLAYER;
+	game->player.tile->type = EMPTY;
+	game->player.tile = tile;
+}
+
 int	move_player(t_game *game, t_tile *tile)
 {
 	// TESTING: default empty
 	if (tile->type == EMPTY)
-	{
-		tile->type = PLAYER;
-		if (game->player.tile->type != EXIT)
-			game->player.tile->type = EMPTY;
-		game->player.tile = tile;
-	}
+		move_to_empty(game, tile);
+	else if (tile->type == COLLECTIBLE)
+		move_to_collectible(game, tile);
 	return (0);
 }
 

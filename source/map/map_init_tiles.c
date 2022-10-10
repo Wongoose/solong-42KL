@@ -68,6 +68,7 @@ t_tile	**init_tiles(char **map, t_game *game)
 		while (map[row][col])
 		{
 			tilemap[row][col].type = define_type(map[row][col]);
+			tilemap[row][col].prev_type = 0;
 			setup_tile(tilemap, col, row);
 			if (tilemap[row][col].type == PLAYER)
 				game->player.tile = &tilemap[row][col];

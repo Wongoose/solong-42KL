@@ -22,15 +22,19 @@ int	render(t_game *game)
 	int		col;
 	int		row;
 
-	mlx_clear_window(game->mlx, game->win);
+	// mlx_clear_window(game->mlx, game->win);
 	row = 0;
 	while (game->tilemap[row] != NULL)
 	{
 		col = 0;
 		while (game->tilemap[row][col].type != 0)
 		{
-			tile = game->tilemap[row][col];
-			draw_image(tile, game, tile.pos);
+			if (game->tilemap[row][col].type != game->tilemap[row][col].prev_type)
+			{
+				tile = game->tilemap[row][col];
+				draw_image(tile, game, tile.pos);
+				game->tilemap[row][col].prev_type = game->tilemap[row][col].type;
+			}
 			col++;
 		}
 		row++;
