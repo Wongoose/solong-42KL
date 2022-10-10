@@ -58,6 +58,7 @@ typedef struct	s_map {
 typedef struct	s_game {
 	void		*mlx;
 	void		*win;
+	t_map		*map_vars;
 	t_tile		**tilemap;
 	t_vector	win_size;
 	t_vector	img_size;
@@ -71,7 +72,7 @@ typedef struct	s_game {
 void	my_mlx_pixel_put(t_player *data, int x, int y, int color);
 char	**read_map(char *file);
 void	valid_file(int argc, char *filename);
-char	*valid_map(char **map);
+char	*valid_map(t_game *game, char **map);
 void	init_images(t_game *game);
 t_tile	**init_tiles(char **map, t_game *game);
 int		input(int keycode, t_game *game);

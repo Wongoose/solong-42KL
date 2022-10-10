@@ -10,7 +10,7 @@ t_tile	**init_map(t_game *game, int argc, char **argv)
 	map = read_map(argv[1]);
 	if (!map)
 		putstr_fd_exit("Failed to read map file.");
-	err_msg = valid_map(map);
+	err_msg = valid_map(game, map);
 	if (err_msg)
 	{
 		free_map(map);

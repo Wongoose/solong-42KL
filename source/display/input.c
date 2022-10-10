@@ -1,27 +1,16 @@
 # include "../../so_long.h"
 
-void	move_to_empty(t_game *game, t_tile *tile)
-{
-	tile->type = PLAYER;
-	game->player.tile->type = EMPTY;
-	game->player.tile = tile;
-}
-
-void	move_to_collectible(t_game *game, t_tile *tile)
-{
-	tile->type = PLAYER;
-	game->player.tile->type = EMPTY;
-	game->player.tile = tile;
-}
-
 int	move_player(t_game *game, t_tile *tile)
 {
-	// TESTING: default empty
-	if (tile->type == EMPTY)
-		move_to_empty(game, tile);
-	else if (tile->type == COLLECTIBLE)
-		move_to_collectible(game, tile);
-	return (0);
+	if (tile->type == WALL)
+		return (0);
+	if (tile->type == COLLECTIBLE)
+		game->map_vars->collectNum--;
+	// printf("Collectible is: %d\n", game->map_vars->collectNum);
+	tile->type = PLAYER;
+	game->player.tile->type = EMPTY;
+	game->player.tile = tile;
+	return (1);
 }
 
 int	input(int keycode, t_game *game)

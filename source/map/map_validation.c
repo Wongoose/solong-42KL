@@ -14,12 +14,16 @@ void	valid_file(int argc, char *filename)
 		putstr_fd_exit("Map should be a valid .ber file.");
 }
 
-void	init_mapvars(t_map *map_vars)
+t_map	*init_mapvars()
 {
+	t_map	*map_vars;
+
+	map_vars = (t_map *)malloc(sizeof(t_map) * 1);
 	map_vars->exitNum = 0;
 	map_vars->startNum = 0;
 	map_vars->collectNum = 0;
 	map_vars->invalidChar = 0;
+	return (map_vars);
 }
 
 void	update_map_vars(t_map *map_vars, char c)
@@ -59,28 +63,29 @@ int	valid_wall(char **map)
 	return (1);
 }
 
-char	*valid_map(char **map)
+char	*valid_map(t_game *game, char **map)
 {
-	t_map	map_vars;
+	t_map	*map_vars;
 	int		row;
 	int		col;
 
-	init_mapvars(&map_vars);
+	map_vars = init_mapvars();
+	game->map_vars = map_vars;
 	row = 0;
 	while (map[row])
 	{
 		col = 0;
 		while (map[row][col])
-			update_map_vars(&map_vars, map[row][col++]);
+			update_map_vars(map_vars, map[row][col++]);
 		row++;
 	}
-	if (map_vars.invalidChar > 0)
+	if (map_vars->invalidChar > 0)
 		return (ft_strdup("Found invalid characters!"));
 	else if (row == col)
 		return (ft_strdup("Map must be rectangular."));
 	else if (!valid_wall(map))
 		return (ft_strdup("Invalid wall detected!"));
-	else if (!((map_vars.startNum == 1 && map_vars.exitNum == 1) && map_vars.collectNum > 0))
+	else if (!((map_vars->startNum == 1 && map_vars->exitNum == 1) && map_vars->collectNum > 0))
 		return (ft_strdup("There must only be one 'P' and one 'E' and at least one 'C' in the map."));
 	return (0);
 }
