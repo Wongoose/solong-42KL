@@ -2,7 +2,6 @@
 
 void	draw_image(t_tile tile, t_game *game, t_vector pos)
 {
-	//compare og_type to current type if has changes
 	if (tile.type == PLAYER)
 		mlx_put_image_to_window(game->mlx, game->win, game->player.img, pos.x, pos.y);
 	else if (tile.type == WALL)
@@ -13,7 +12,6 @@ void	draw_image(t_tile tile, t_game *game, t_vector pos)
 		mlx_put_image_to_window(game->mlx, game->win, game->collectible_img, pos.x, pos.y);
 	else if (tile.type == EXIT)
 		mlx_put_image_to_window(game->mlx, game->win, game->exit_img, pos.x, pos.y);
-	// update og_type to current_type
 }
 
 int	render(t_game *game)
@@ -22,7 +20,6 @@ int	render(t_game *game)
 	int		col;
 	int		row;
 
-	// mlx_clear_window(game->mlx, game->win);
 	row = 0;
 	while (game->tilemap[row] != NULL)
 	{
@@ -35,6 +32,25 @@ int	render(t_game *game)
 				draw_image(tile, game, tile.pos);
 				game->tilemap[row][col].prev_type = game->tilemap[row][col].type;
 			}
+			col++;
+		}
+		row++;
+	}
+	return (0);
+}
+
+int	init_background(t_game *game)
+{
+	int		col;
+	int		row;
+
+	row = 0;
+	while (game->tilemap[row] != NULL)
+	{
+		col = 0;
+		while (game->tilemap[row][col].type != 0)
+		{
+			mlx_put_image_to_window(game->mlx, game->win, game->background_img, game->tilemap[row][col].pos.x, game->tilemap[row][col].pos.y);
 			col++;
 		}
 		row++;

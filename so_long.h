@@ -75,6 +75,7 @@ char	**read_map(char *file);
 void	valid_file(int argc, char *filename);
 char	*valid_map(t_game *game, char **map);
 void	init_images(t_game *game);
+int	init_background(t_game *game);
 t_tile	**init_tiles(char **map, t_game *game);
 int		input(int keycode, t_game *game);
 int		render(t_game *game);

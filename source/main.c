@@ -31,11 +31,11 @@ void	init_display(t_game *game)
 
 void	init_images(t_game *game)
 {
-	game->player.img = mlx_xpm_file_to_image(game->mlx, "assets/idle_0.xpm", &game->img_size.x, &game->img_size.y);
-	game->wall_img = mlx_xpm_file_to_image(game->mlx, "assets/Brown.xpm", &game->img_size.x, &game->img_size.y);
-	game->background_img = mlx_xpm_file_to_image(game->mlx, "assets/Gray.xpm", &game->img_size.x, &game->img_size.y);
-	game->collectible_img = mlx_xpm_file_to_image(game->mlx, "assets/Apple.xpm", &game->img_size.x, &game->img_size.y);
-	game->exit_img = mlx_xpm_file_to_image(game->mlx, "assets/Exit.xpm", &game->img_size.x, &game->img_size.y);
+	game->player.img = mlx_xpm_file_to_image(game->mlx, "assets/character.xpm", &game->img_size.x, &game->img_size.y);
+	game->wall_img = mlx_xpm_file_to_image(game->mlx, "assets/tree.xpm", &game->img_size.x, &game->img_size.y);
+	game->background_img = mlx_xpm_file_to_image(game->mlx, "assets/wood.xpm", &game->img_size.x, &game->img_size.y);
+	game->collectible_img = mlx_xpm_file_to_image(game->mlx, "assets/apple.xpm", &game->img_size.x, &game->img_size.y);
+	game->exit_img = mlx_xpm_file_to_image(game->mlx, "assets/trophy.xpm", &game->img_size.x, &game->img_size.y);
 }
 
 int	init_game(t_game *game, int argc, char **argv)
@@ -45,6 +45,7 @@ int	init_game(t_game *game, int argc, char **argv)
 	// MISSING: animation setup
 	init_display(game);
 	init_images(game);
+	init_background(game);
 	return (1);
 }
 
