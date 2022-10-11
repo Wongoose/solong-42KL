@@ -14,6 +14,23 @@ void	draw_image(t_tile tile, t_game *game, t_vector pos)
 		mlx_put_image_to_window(game->mlx, game->win, game->exit_img, pos.x, pos.y);
 }
 
+void	draw_text(t_game *game)
+{
+	char	*str;
+
+	str = ft_itoa((game->moves) - 1);
+	mlx_string_put(game->mlx, game->win,
+		game->win_size.x + 5,
+		5,
+		1, str);
+	str = ft_itoa(game->moves);
+	mlx_string_put(game->mlx, game->win,
+		game->win_size.x + 5,
+		5,
+		-1, str);
+	free(str);
+}
+
 int	render(t_game *game)
 {
 	t_tile	tile;
@@ -36,10 +53,11 @@ int	render(t_game *game)
 		}
 		row++;
 	}
+	draw_text(game);
 	return (0);
 }
 
-int	init_background(t_game *game)
+void	init_background(t_game *game)
 {
 	int		col;
 	int		row;
@@ -55,5 +73,4 @@ int	init_background(t_game *game)
 		}
 		row++;
 	}
-	return (0);
 }

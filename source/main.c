@@ -26,7 +26,7 @@ t_tile	**init_map(t_game *game, int argc, char **argv)
 void	init_display(t_game *game)
 {
 	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, game->win_size.x, game->win_size.y, "so_long");
+	game->win = mlx_new_window(game->mlx, game->win_size.x + IMG_SIZE * 1.5, game->win_size.y, "so_long");
 }
 
 void	init_images(t_game *game)

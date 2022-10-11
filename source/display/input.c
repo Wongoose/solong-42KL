@@ -31,6 +31,5 @@ int	input(int keycode, t_game *game)
 		move_player(game, game->player.tile->right);
 	else
 		return (0);
-	printf("Moves is: %d\n", game->moves);
 	return (1);
 }
