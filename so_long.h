@@ -43,6 +43,9 @@ typedef struct	s_tile {
 
 typedef struct	s_player {
 	void	*img;
+	void	*right_img;
+	void	*left_img;
+	void	*slash_img;
 	t_tile	*tile;
 	int		img_width;
 	int		img_height;
@@ -67,6 +70,8 @@ typedef struct	s_game {
 	void		*background_img;
 	void		*collectible_img;
 	void		*exit_img;
+	void		*exit_img1;
+	void		*exit_img2;
 	int			moves;
 }	t_game;
 
@@ -75,7 +80,6 @@ char	**read_map(char *file);
 void	valid_file(int argc, char *filename);
 char	*valid_map(t_game *game, char **map);
 void	init_images(t_game *game);
-void	init_background(t_game *game);
 t_tile	**init_tiles(char **map, t_game *game);
 int		input(int keycode, t_game *game);
 int		render(t_game *game);

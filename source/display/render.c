@@ -2,6 +2,7 @@
 
 void	draw_image(t_tile tile, t_game *game, t_vector pos)
 {
+	mlx_put_image_to_window(game->mlx, game->win, game->background_img, pos.x, pos.y);
 	if (tile.type == PLAYER)
 		mlx_put_image_to_window(game->mlx, game->win, game->player.img, pos.x, pos.y);
 	else if (tile.type == WALL)
@@ -38,12 +39,16 @@ int	render(t_game *game)
 	int		row;
 
 	row = 0;
+	if (game->moves % 2)
+		game->exit_img = game->exit_img2;
+	else
+		game->exit_img = game->exit_img1;
 	while (game->tilemap[row] != NULL)
 	{
 		col = 0;
 		while (game->tilemap[row][col].type != 0)
 		{
-			if (game->tilemap[row][col].type != game->tilemap[row][col].prev_type)
+			if ((game->tilemap[row][col].type == EXIT) || (game->tilemap[row][col].type != game->tilemap[row][col].prev_type))
 			{
 				tile = game->tilemap[row][col];
 				draw_image(tile, game, tile.pos);
@@ -57,20 +62,20 @@ int	render(t_game *game)
 	return (0);
 }
 
-void	init_background(t_game *game)
-{
-	int		col;
-	int		row;
+// void	init_background(t_game *game)
+// {
+// 	int		col;
+// 	int		row;
 
-	row = 0;
-	while (game->tilemap[row] != NULL)
-	{
-		col = 0;
-		while (game->tilemap[row][col].type != 0)
-		{
-			mlx_put_image_to_window(game->mlx, game->win, game->background_img, game->tilemap[row][col].pos.x, game->tilemap[row][col].pos.y);
-			col++;
-		}
-		row++;
-	}
-}
+// 	row = 0;
+// 	while (game->tilemap[row] != NULL)
+// 	{
+// 		col = 0;
+// 		while (game->tilemap[row][col].type != 0)
+// 		{
+// 			mlx_put_image_to_window(game->mlx, game->win, game->background_img, game->tilemap[row][col].pos.x, game->tilemap[row][col].pos.y);
+// 			col++;
+// 		}
+// 		row++;
+// 	}
+// }
