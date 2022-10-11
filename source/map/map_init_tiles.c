@@ -35,6 +35,8 @@ t_tiletype	define_type(char c)
 		return (PLAYER);
 	else if (c == 'E')
 		return (EXIT);
+	else if (c == 'X')
+		return (ENEMY);
 	else
 		return (EMPTY);
 }
@@ -72,7 +74,8 @@ t_tile	**init_tiles(char **map, t_game *game)
 			setup_tile(tilemap, col, row);
 			if (tilemap[row][col].type == PLAYER)
 				game->player.tile = &tilemap[row][col];
-			// MISSING: set game variables (i.e. collectibles++)
+			else if (tilemap[row][col].type == ENEMY)
+				game->enemy.tile = &tilemap[row][col];
 			col++;
 		}
 		tilemap[row][col].type = 0;

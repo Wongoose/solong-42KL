@@ -26,5 +26,6 @@ int	end_program(t_game *game)
 {
 	free_tilemap(game->tilemap);
 	mlx_destroy_window(game->mlx, game->win);
+	// system("leaks so_long");
 	exit(1);
 }

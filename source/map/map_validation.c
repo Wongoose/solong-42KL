@@ -21,6 +21,7 @@ t_map	*init_mapvars()
 	map_vars = (t_map *)malloc(sizeof(t_map) * 1);
 	map_vars->exitNum = 0;
 	map_vars->startNum = 0;
+	map_vars->enemyNum = 0;
 	map_vars->collectNum = 0;
 	map_vars->invalidChar = 0;
 	return (map_vars);
@@ -34,6 +35,8 @@ void	update_map_vars(t_map *map_vars, char c)
 		map_vars->startNum++;
 	else if (c == 'C')
 		map_vars->collectNum++;
+	else if (c == 'X')
+		map_vars->enemyNum++;
 	else if (c == '0' || c == '1')
 		return ;
 	else
@@ -85,7 +88,7 @@ char	*valid_map(t_game *game, char **map)
 		return (ft_strdup("Map must be rectangular."));
 	else if (!valid_wall(map))
 		return (ft_strdup("Invalid wall detected!"));
-	else if (!((map_vars->startNum == 1 && map_vars->exitNum == 1) && map_vars->collectNum > 0))
-		return (ft_strdup("There must only be one 'P' and one 'E' and at least one 'C' in the map."));
+	else if (!(((map_vars->startNum == 1 && map_vars->exitNum == 1) && map_vars->enemyNum == 1) && map_vars->collectNum > 0))
+		return (ft_strdup("There must only be one 'P', one 'E', one 'X, and at least one 'C' in the map."));
 	return (0);
 }

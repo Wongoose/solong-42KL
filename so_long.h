@@ -14,6 +14,10 @@ enum e_keycode
 	KEY_DOWN = 1,
 	KEY_LEFT = 0,
 	KEY_RIGHT = 2,
+	ARROW_UP = 126,
+	ARROW_DOWN = 125,
+	ARROW_LEFT = 123,
+	ARROW_RIGHT = 124,
 	RESET = 15,
 	ESC = 53
 };
@@ -24,6 +28,7 @@ typedef enum	e_tiletype {
 	COLLECTIBLE = 'C',
 	PLAYER = 'P',
 	EXIT = 'E',
+	ENEMY = 'X',
 }	t_tiletype;
 
 typedef struct s_vector {
@@ -51,9 +56,20 @@ typedef struct	s_player {
 	int		img_height;
 }	t_player;
 
+typedef struct	s_enemy {
+	void	*img;
+	void	*right_img;
+	void	*left_img;
+	void	*slash_img;
+	t_tile	*tile;
+	int		img_width;
+	int		img_height;
+}	t_enemy;
+
 typedef struct	s_map {
 	int	exitNum;
 	int	startNum;
+	int	enemyNum;
 	int	collectNum;
 	int	invalidChar;
 }	t_map;
@@ -66,6 +82,7 @@ typedef struct	s_game {
 	t_vector	win_size;
 	t_vector	img_size;
 	t_player	player;
+	t_enemy		enemy;
 	void		*wall_img;
 	void		*background_img;
 	void		*collectible_img;

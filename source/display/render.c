@@ -13,6 +13,8 @@ void	draw_image(t_tile tile, t_game *game, t_vector pos)
 		mlx_put_image_to_window(game->mlx, game->win, game->collectible_img, pos.x, pos.y);
 	else if (tile.type == EXIT)
 		mlx_put_image_to_window(game->mlx, game->win, game->exit_img, pos.x, pos.y);
+	else if (tile.type == ENEMY)
+		mlx_put_image_to_window(game->mlx, game->win, game->enemy.img, pos.x, pos.y);
 }
 
 void	draw_text(t_game *game)
@@ -24,6 +26,7 @@ void	draw_text(t_game *game)
 		game->win_size.x + 5,
 		5,
 		1, str);
+	free(str);
 	str = ft_itoa(game->moves);
 	mlx_string_put(game->mlx, game->win,
 		game->win_size.x + 5,

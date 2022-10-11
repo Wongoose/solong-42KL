@@ -41,13 +41,15 @@ void	init_images(t_game *game)
 	game->exit_img = mlx_xpm_file_to_image(game->mlx, "assets/trophy.xpm", &game->img_size.x, &game->img_size.y);
 	game->exit_img1 = mlx_xpm_file_to_image(game->mlx, "assets/trophy.xpm", &game->img_size.x, &game->img_size.y);
 	game->exit_img2 = mlx_xpm_file_to_image(game->mlx, "assets/trophy2.xpm", &game->img_size.x, &game->img_size.y);
+	game->enemy.img = mlx_xpm_file_to_image(game->mlx, "assets/slime-right.xpm", &game->img_size.x, &game->img_size.y);
+	game->enemy.right_img = mlx_xpm_file_to_image(game->mlx, "assets/slime-right.xpm", &game->img_size.x, &game->img_size.y);
+	game->enemy.left_img = mlx_xpm_file_to_image(game->mlx, "assets/slime-left.xpm", &game->img_size.x, &game->img_size.y);
 }
 
 int	init_game(t_game *game, int argc, char **argv)
 {
 	game->moves = 0;
 	game->tilemap = init_map(game, argc, argv);
-	// MISSING: animation setup
 	init_display(game);
 	init_images(game);
 	return (1);
