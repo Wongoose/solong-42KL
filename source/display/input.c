@@ -1,4 +1,16 @@
-# include "../../so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zwong <zwong@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 09:30:30 by zwong             #+#    #+#             */
+/*   Updated: 2022/10/13 10:43:16 by zwong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../so_long.h"
 
 int	move_player(t_game *game, t_tile *tile)
 {
@@ -8,7 +20,7 @@ int	move_player(t_game *game, t_tile *tile)
 		end_program(game);
 	if (tile->type == COLLECTIBLE)
 	{
-		game->map_vars->collectNum--;
+		game->map_vars->collect_num--;
 		game->player.img = game->player.slash_img;
 	}
 	tile->type = PLAYER;

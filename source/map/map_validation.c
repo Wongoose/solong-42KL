@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_validation.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zwong <zwong@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 09:30:49 by zwong             #+#    #+#             */
+/*   Updated: 2022/10/13 10:43:41 by zwong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../so_long.h"
 
 // Auto exit if invalid file
@@ -10,37 +22,37 @@ void	valid_file(int argc, char *filename)
 	if (argc > 2)
 		putstr_fd_exit("Too many arguments.");
 	filetype = ft_strnstr(filename, ".ber", ft_strlen(filename));
-	if(!filetype || ft_strlen(filetype) != 4)
+	if (!filetype || ft_strlen(filetype) != 4)
 		putstr_fd_exit("Map should be a valid .ber file.");
 }
 
-t_map	*init_mapvars()
+t_map	*init_mapvars(void)
 {
 	t_map	*map_vars;
 
 	map_vars = (t_map *)malloc(sizeof(t_map) * 1);
-	map_vars->exitNum = 0;
-	map_vars->startNum = 0;
-	map_vars->enemyNum = 0;
-	map_vars->collectNum = 0;
-	map_vars->invalidChar = 0;
+	map_vars->exit_num = 0;
+	map_vars->start_num = 0;
+	map_vars->enemy_num = 0;
+	map_vars->collect_num = 0;
+	map_vars->invalid_char = 0;
 	return (map_vars);
 }
 
 void	update_map_vars(t_map *map_vars, char c)
 {
 	if (c == 'E')
-		map_vars->exitNum++;
+		map_vars->exit_num++;
 	else if (c == 'P')
-		map_vars->startNum++;
+		map_vars->start_num++;
 	else if (c == 'C')
-		map_vars->collectNum++;
+		map_vars->collect_num++;
 	else if (c == 'X')
-		map_vars->enemyNum++;
+		map_vars->enemy_num++;
 	else if (c == '0' || c == '1')
 		return ;
 	else
-		map_vars->invalidChar++;
+		map_vars->invalid_char++;
 }
 
 int	valid_wall(char **map)
@@ -82,13 +94,14 @@ char	*valid_map(t_game *game, char **map)
 			update_map_vars(map_vars, map[row][col++]);
 		row++;
 	}
-	if (map_vars->invalidChar > 0)
-		return (ft_strdup("Found invalid characters!"));
+	if (map_vars->invalid_char > 0)
+		return ("Found invalid characters!");
 	else if (row == col)
-		return (ft_strdup("Map must be rectangular."));
+		return ("Map must be rectangular.");
 	else if (!valid_wall(map))
-		return (ft_strdup("Invalid wall detected!"));
-	else if (!(((map_vars->startNum == 1 && map_vars->exitNum == 1) && map_vars->enemyNum == 1) && map_vars->collectNum > 0))
-		return (ft_strdup("There must only be one 'P', one 'E', one 'X, and at least one 'C' in the map."));
+		return ("Invalid wall detected!");
+	else if (!(((map_vars->start_num == 1 && map_vars->exit_num == 1)
+				&& map_vars->enemy_num == 1) && map_vars->collect_num > 0))
+		return ("Map must have a 'P', an 'E', an 'X, and at least one 'C'.");
 	return (0);
 }

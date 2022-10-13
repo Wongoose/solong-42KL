@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_init_tiles.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zwong <zwong@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 09:30:44 by zwong             #+#    #+#             */
+/*   Updated: 2022/10/13 10:26:57 by zwong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../so_long.h"
 
 t_tile	**allocate_tiles(char **map)
@@ -14,7 +26,7 @@ t_tile	**allocate_tiles(char **map)
 	rows = 0;
 	while (map[rows])
 	{
-		tilemap[rows] = (t_tile *)malloc(sizeof(t_tile) * (ft_strlen(*map) + 1));
+		tilemap[rows] = malloc(sizeof(t_tile) * (ft_strlen(*map) + 1));
 		if (!tilemap[rows])
 		{
 			free_tilemap(tilemap);
@@ -51,7 +63,16 @@ void	setup_tile(t_tile **tilemap, int col, int row)
 		tilemap[row][col].down = &tilemap[row + 1][col];
 	if (col != 0)
 		tilemap[row][col].left = &tilemap[row][col - 1];
-	tilemap[row][col].right = &tilemap[row][col + 1];	
+	tilemap[row][col].right = &tilemap[row][col + 1];
+	tilemap[row][col].prev_type = 0;
+}
+
+void	setup_players(t_game *game, t_tile *tile)
+{
+	if (tile->type == PLAYER)
+		game->player.tile = tile;
+	else if (tile->type == ENEMY)
+		game->enemy.tile = tile;
 }
 
 t_tile	**init_tiles(char **map, t_game *game)
@@ -70,12 +91,8 @@ t_tile	**init_tiles(char **map, t_game *game)
 		while (map[row][col])
 		{
 			tilemap[row][col].type = define_type(map[row][col]);
-			tilemap[row][col].prev_type = 0;
 			setup_tile(tilemap, col, row);
-			if (tilemap[row][col].type == PLAYER)
-				game->player.tile = &tilemap[row][col];
-			else if (tilemap[row][col].type == ENEMY)
-				game->enemy.tile = &tilemap[row][col];
+			setup_players(game, &tilemap[row][col]);
 			col++;
 		}
 		tilemap[row][col].type = 0;

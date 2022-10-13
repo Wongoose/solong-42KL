@@ -1,42 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   images.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zwong <zwong@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 09:31:06 by zwong             #+#    #+#             */
-/*   Updated: 2022/10/13 10:40:38 by zwong            ###   ########.fr       */
+/*   Created: 2022/10/13 10:40:50 by zwong             #+#    #+#             */
+/*   Updated: 2022/10/13 10:41:07 by zwong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../so_long.h"
 
-void	free_map(char **map)
+void	*my_xpm_to_img(t_game *game, char *str)
 {
-	int	i;
+	int	*xsize;
+	int	*ysize;
 
-	i = 0;
-	while (map[i])
-		free(map[i++]);
-	free(map[i]);
-	free(map);
-}
-
-void	free_tilemap(t_tile **tilemap)
-{
-	int	i;
-
-	i = 0;
-	while (tilemap[i])
-		free(tilemap[i++]);
-	free(tilemap[i]);
-	free(tilemap);
-}
-
-int	end_program(t_game *game)
-{
-	free_tilemap(game->tilemap);
-	mlx_destroy_window(game->mlx, game->win);
-	exit(1);
+	xsize = &game->img_size.x;
+	ysize = &game->img_size.y;
+	return (mlx_xpm_file_to_image(game->mlx, str, xsize, ysize));
 }

@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zwong <zwong@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 10:41:29 by zwong             #+#    #+#             */
+/*   Updated: 2022/10/13 10:45:16 by zwong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # define IMG_SIZE 32
 
 # include <mlx.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include "libft/libft.h"
@@ -22,7 +33,7 @@ enum e_keycode
 	ESC = 53
 };
 
-typedef enum	e_tiletype {
+typedef enum e_tiletype {
 	EMPTY = '0',
 	WALL = '1',
 	COLLECTIBLE = 'C',
@@ -36,7 +47,7 @@ typedef struct s_vector {
 	int	y;
 }	t_vector;
 
-typedef struct	s_tile {
+typedef struct s_tile {
 	t_tiletype		type;
 	t_tiletype		prev_type;
 	t_vector		pos;
@@ -46,7 +57,7 @@ typedef struct	s_tile {
 	struct s_tile	*right;
 }	t_tile;
 
-typedef struct	s_player {
+typedef struct s_player {
 	void	*img;
 	void	*right_img;
 	void	*left_img;
@@ -56,7 +67,7 @@ typedef struct	s_player {
 	int		img_height;
 }	t_player;
 
-typedef struct	s_enemy {
+typedef struct s_enemy {
 	void	*img;
 	void	*right_img;
 	void	*left_img;
@@ -66,15 +77,15 @@ typedef struct	s_enemy {
 	int		img_height;
 }	t_enemy;
 
-typedef struct	s_map {
-	int	exitNum;
-	int	startNum;
-	int	enemyNum;
-	int	collectNum;
-	int	invalidChar;
+typedef struct s_map {
+	int	exit_num;
+	int	start_num;
+	int	enemy_num;
+	int	collect_num;
+	int	invalid_char;
 }	t_map;
 
-typedef struct	s_game {
+typedef struct s_game {
 	void		*mlx;
 	void		*win;
 	t_map		*map_vars;
@@ -96,7 +107,7 @@ void	my_mlx_pixel_put(t_player *data, int x, int y, int color);
 char	**read_map(char *file);
 void	valid_file(int argc, char *filename);
 char	*valid_map(t_game *game, char **map);
-void	init_images(t_game *game);
+void	*my_xpm_to_img(t_game *game, char *str);
 t_tile	**init_tiles(char **map, t_game *game);
 int		input(int keycode, t_game *game);
 int		render(t_game *game);
